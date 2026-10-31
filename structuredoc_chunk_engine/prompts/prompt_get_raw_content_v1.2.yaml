@@ -1,0 +1,68 @@
+id: prompt_get_raw_content_v1.2
+canonical_id: PROMPT_GET_RAW_CONTENT_CNAB750
+version: "1.2.0"
+created: 20261027T22000001Z
+author:
+  - HITL: "Sandro Regis Cardoso"
+  - AI_ENGINE: "Gemini"
+status: DRAFT
+formalized: false
+
+action:
+  atomic: true
+  scope: LOGICAL
+  mode:
+    - DETERMINISTIC
+    - NON_INFERENTIAL
+    - AI_HITL
+    - PAR_COGNITIVE_DEVELOPMENT
+    - PTER
+
+  target_ssot: "Layout_padrao_CNAB750_V2_1_22_02_21_2.pdf"
+  target_domain: "FEBRABAN CNAB 750 (PIX)"
+  target_table: "ESTRUTURA DE ENVIO DO ARQUIVO REMESSA"
+  target_page: 3
+
+  objective: "Extrair tabelas complexas com células mescladas (rowspan/colspan) e ramificações hierárquicas, preservando a SSOT relacional."
+
+  execution_scope:
+    enforcement: quality_over_velocity
+    parallel_tasks: forbidden
+
+    system_prompt: |
+      Você é um Arquiteto de Sistemas de IA especialista em extração de dados tabulares não estruturados de manuais normativos bancários.
+      Sua tarefa é analisar o conteúdo bruto da página alvo e convertê-lo em um payload JSON estruturado, resolvendo explicitamente células mescladas e ramificações hierárquicas (ex: Registro '2 - INFO ADICIONAIS' e suas subdivisões de Tipo de Cobrança e Presença).
+      Regra de Ouro Relacional: Se uma linha principal possui subtipos (ex: 'PAGAMENTO IMEDIATO' e 'COM VENCIMENTO'), modele os 'rows' como objetos compostos com sub_itens para evitar perda de dimensionalidade.
+      NÃO utilize Markdown tabular puro. Retorne estritamente um JSON válido conforme o esquema esperado.
+
+    user_prompt: |
+      Analise o texto e o layout da página 3 do documento CNAB 750 anexado ('Layout_padrao_CNAB750_V2_1_22_02_21_2.pdf').
+      Foque estritamente na tabela: 'ESTRUTURA DE ENVIO DO ARQUIVO REMESSA'.
+      Mapeie com rigor os códigos '0', '1', '2', '3' e '9', preservando a correlação exata entre 'Tipo de Registro', 'Tipo de Cobrança' e 'Presença'.
+
+  constraints:
+    - do not invent
+    - do not extrapolate
+    - do not output before validate
+    - validate deterministic interpretation over merged cells and columns
+
+  abort_conditions:
+    - error
+    - inconsistency
+    - truncation
+    - target_ssot_state: [ghost, dead_alive, missing, inferred, partial]
+
+  expected_output_schema:
+    type: "object"
+    properties:
+      title: "string"
+      metadata: "object"
+      headers: "array"
+      rows: "array"
+
+  audit:
+    - rules
+    - constraints
+    - quality_over_velocity
+    - quality_threshold: ">= 0.97"
+    - average_embedding_expected_quality_score: "Calculated based on resulting .json structural fidelity vs SSOT"

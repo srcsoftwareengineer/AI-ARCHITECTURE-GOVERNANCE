@@ -1,0 +1,16 @@
+# Ambientes de Desenvolvimento e Rascunhos
+**/__dev__/
+
+# Arquivos de Sistema e Logs
+*.log
+*.backup*
+.DS_Store
+.project
+.pydevproject
+
+# Ambientes Python / Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/

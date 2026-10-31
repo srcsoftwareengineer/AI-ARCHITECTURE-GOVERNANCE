@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>HITL Audit Preview - ESTRUTURA DE ENVIO DO ARQUIVO REMESSA</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; background-color: #f8f9fa; }
+        h2 { color: #0d6efd; }
+        table { border-collapse: collapse; width: 100%; background: #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 6px; overflow: hidden; }
+        th, td { border: 1px solid #dee2e6; padding: 14px; text-align: left; vertical-align: top; }
+        th { background-color: #212529; color: #fff; }
+        tr:nth-child(even) { background-color: #f8f9fa; }
+        .badge { background: #198754; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+    <h2>StructuraDoc Engine <span class="badge">HITL Audit v1.2.1 SSOT Corrected</span></h2>
+    <h3>Documento: ESTRUTURA DE ENVIO DO ARQUIVO REMESSA</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Registro | Tipo de Registro</th>
+                <th>Tipo de Cobrança</th>
+                <th>Presença</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>0</td>
+                <td>HEADER</td>
+                <td colspan="2">QR CODE ESTÁTICO E DINÂMICOS</td>
+                <td>OBRIGATÓRIA</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>DETALHE</td>
+                <td colspan="2">QR CODE ESTÁTICO E DINÂMICOS</td>
+                <td>OBRIGATÓRIA</td>
+            </tr>
+            <tr>
+                <td rowspan="2">2</td>
+                <td rowspan="2">INFO ADICIONAIS</td>
+                <td rowspan="2">APENAS QR CODE DINÂMICO</td>
+                <td>PAGAMENTO IMEDIATO</td>
+                <td>OPCIONAL</td>
+            </tr>
+            <tr>
+                <td>COM VENCIMENTO</td>
+                <td>OPCIONAL</td>
+            </tr>
+            <tr>
+                <td rowspan="1">3</td>
+                <td rowspan="1">DADOS ADICIONAIS COBRANÇA COM VENCIMENTO</td>
+                <td rowspan="1">APENAS QR CODE DINÂMICO</td>
+                <td>COM VENCIMENTO</td>
+                <td>OBRIGATÓRIA (EMISSÃO)</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>TRAILER</td>
+                <td colspan="2">QR CODE ESTÁTICO E DINÂMICOS</td>
+                <td>OBRIGATÓRIA</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

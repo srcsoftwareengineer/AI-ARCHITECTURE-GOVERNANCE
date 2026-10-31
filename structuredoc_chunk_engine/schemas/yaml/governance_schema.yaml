@@ -1,0 +1,40 @@
+---
+schema_version: "1.0.0"
+target_scope: AI-ARCHITECTURE-GOVERNANCE
+module_name: structuredoc_chunk_engine
+
+validation_targets:
+  markdown_docs:
+    path_patterns:
+      - "structuredoc_chunk_engine/docs/*.md"
+      - "*.md"
+    mandatory_keys:
+      - id
+      - canonical_id
+      - module
+      - create
+      - updated
+      - scope
+      - mode
+      - author
+      - ai_engine
+
+  python_drafts:
+    path_patterns:
+      - "structuredoc_chunk_engine/__drafts__/*.py"
+    mandatory_keys:
+      - description
+      - id
+      - version
+      - path
+      - canonical_id
+      - status
+      - author
+      - ai_engine
+
+governance_rules:
+  strict_match_keys: true
+  block_stochastic_session_id: true
+  enforce_hitl_orchestrator: true
+  non_inferential_directive: "NÃO INFERIR, NÃO CHUTAR, NÃO INVENTAR"
+---

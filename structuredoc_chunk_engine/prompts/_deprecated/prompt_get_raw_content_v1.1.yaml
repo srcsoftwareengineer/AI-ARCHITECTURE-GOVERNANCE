@@ -1,0 +1,43 @@
+id: prompt_get_raw_content_v1.1
+canonical_id: PROMPT_GET_RAW_CONTENT_CNAB750
+version: "1.1.0"
+created: 20261027T21450001Z
+author:
+  - HITL: "Sandro Regis Cardoso"
+  - AI_ENGINE: "Gemini"
+status: DRAFT
+formalized: false
+
+action:
+  atomic: true
+  scope: LOGICAL
+  mode:
+    - DETERMINISTIC
+    - NON_INFERENTIAL
+    - AI_HITL
+    - PAR_COGNITIVE_DEVELOPMENT
+    - PTER
+
+  target_ssot: "Layout_padrao_CNAB750_V2_1_22_02_21_2.pdf"
+  target_domain: "FEBRABAN CNAB 750 (PIX)"
+  target_table: "ESTRUTURA DE ENVIO DO ARQUIVO REMESSA"
+  target_page: 3
+
+  objective: "Extrair tabelas complexas com células mescladas (rowspan/colspan) preservando a SSOT relacional."
+
+  execution_scope:
+    enforcement: quality_over_velocity
+    parallel_tasks: forbidden
+
+  constraints:
+    - do not invent
+    - do not extrapolate
+    - do not output before validate
+    - validate deterministic interpretation over merged cells and columns
+
+  audit:
+    - rules
+    - constraints
+    - quality_over_velocity
+    - quality_threshold: ">= 0.97"
+    - average_embedding_expected_quality_score: "Calculated based on resulting .json structural fidelity vs SSOT"
